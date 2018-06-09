@@ -1,13 +1,15 @@
+/* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
 import Chat from '@/components/Chat'
 import UserAuth from '@/components/UserAuth'
 
+/* eslint-disable */
 
 Vue.use(Router)
 
 
-cont router = new Router({
+const router = new Router({
   routes: [
     {
       path: '/chats',
@@ -24,7 +26,7 @@ cont router = new Router({
 })
 
 
-router.beforeEach((to, from, next) -> {
+router.beforeEach((to, from, next)  => {
   if (sessionStorage.getItem('authToken') != null || to.path == '/auth') {
     next()
   } else {
