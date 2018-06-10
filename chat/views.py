@@ -6,7 +6,7 @@ from .models import (
 )
 
 
-from rest_framework.view import APIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 
@@ -72,7 +72,7 @@ class ChatSessionMessageView(APIView):
         uri = kwargs['uri']
         message = request.data['message']
         user = request.user
-        chat_session= = ChatSession.objects.get(uri=uri)
+        chat_session = ChatSession.objects.get(uri=uri)
         ChatSessionMessage.objects.create(
             user=user, chat_session=chat_session, message=message
         )

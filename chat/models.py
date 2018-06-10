@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-def deserialize(user):
+def deserialize_user(user):
     """Deserialize user instance to JSON."""
     return {
         'id': user.id,
@@ -45,7 +45,7 @@ class ChatSession(TrackableDateModel):
     uri = models.URLField(default=_generate_unique_uri)
 
 
-class ChatSessionMessge(TrackableDateModel):
+class ChatSessionMessage(TrackableDateModel):
     """Store messages for a session."""
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     chat_sesion = models.ForeignKey(ChatSession, related_name="messages", on_delete=models.PROTECT)
