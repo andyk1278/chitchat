@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!=8a*i!8p7y&ihf=_u_^=fqozc#hh*i_7yp1r(65i14rhmzlht'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'djoser',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -127,10 +129,28 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.TokenAuthentication',
+    # ),
+# }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    )
 }
 
+# django-cors-header configuration
 CORS_ORIGIN_ALLOW_ALL = True
+
+# celery settings
+CELERY_TASK_ALWAYS_EAGER = True
+
+# django-notif settings
+NOTIFICATION_CHANNELS = {
+    'websocket': 'chat.channels.BroadCastWebSocketChannel'
+}
+
+# djangorestframework-jwt settings
+JWT_ALLOW_REFRESH = True
+JWT_EXPIRATION_DELTA = timedelta(minutes=30)

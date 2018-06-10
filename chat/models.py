@@ -33,7 +33,7 @@ class TrackableDateModel(models.Model):
 
 def _generate_unique_uri():
     """Generate a unique uri for the chat session.."""
-    return str(uuid64()).replace('~', '')[:15]
+    return str(uuid4()).replace('~', '')[:15]
 
 
 class ChatSession(TrackableDateModel):
@@ -48,7 +48,7 @@ class ChatSession(TrackableDateModel):
 class ChatSessionMessage(TrackableDateModel):
     """Store messages for a session."""
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    chat_sesion = models.ForeignKey(ChatSession, related_name="messages", on_delete=models.PROTECT)
+    chat_session = models.ForeignKey(ChatSession, related_name="messages", on_delete=models.PROTECT)
     message = models.TextField(max_length=2000)
 
     def to_json(self):
@@ -60,4 +60,3 @@ class ChatSessionMember(TrackableDateModel):
     """Store all user in a chat session."""
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     chat_session = models.ForeignKey(ChatSession, related_name='members', on_delete=models.PROTECT)
-

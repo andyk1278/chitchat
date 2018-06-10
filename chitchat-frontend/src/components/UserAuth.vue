@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 <template>
   <div class="container">
     <h1 class="text-center">Welcome to Chatire!</h1>
@@ -40,6 +38,7 @@
               <button type="submit" class="btn btn-block btn-primary">Sign up</button>
             </form>
           </div>
+
           <div class="tab-pane fade" id="signin" role="tabpanel" aria-labelledby="signin-tab">
             <form @submit.prevent="signIn">
               <div class="form-group">
@@ -51,24 +50,43 @@
               <button type="submit" class="btn btn-block btn-primary">Sign in</button>
             </form>
           </div>
+          
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
-
-/* eslint-disable */
   const $ = window.jQuery // JQuery
-
   export default {
-
     data () {
       return {
         email: '', username: '', password: ''
       }
+    },
+    methods: {
+      signUp () {
+        $.post('http://localhost:8000/auth/users/create/', this.$data, (data) => {
+          alert('Your account has been created. You will be signed in automatically')
+          this.signIn()
+        })
+        .fail((response) => {
+          alert(response.responseText)
+        })
+      },
+      signIn () {
+        const credentials = {username: this.username, password: this.password}
+        $.post('http://localhost:8000/auth/jwt/create/', credentials, (data) => {
+          sessionStorage.setItem('authToken', data.token)
+          sessionStorage.setItem('username', this.username)
+          this.$router.push('/chats')
+        })
+        .fail((response) => {
+          alert(response.responseText)
+        })
+      }
     }
-
   }
 </script>
 
@@ -76,7 +94,6 @@
   #auth-container {
     margin-top: 50px;
   }
-
   .tab-content {
     padding-top: 20px;
   }
