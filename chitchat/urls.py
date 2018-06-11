@@ -25,10 +25,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('djoser.urls')),
 
-    path('auth/jwt/refresh/', raise_404),
+    # path('auth/jwt/refresh/', raise_404),
 
-    path('difficult/path/to/guess/', verify_jwt_token),
+    path('auth/', include('djoser.urls.authtoken')),
 
-    path('auth/', include('djoser.urls.jwt')),
+    # path('difficult/path/to/guess/', verify_jwt_tokn),
+
+    # path('auth/', include('djoser.urls.jwt')),
     path('api/', include('chat.urls'))
 ]

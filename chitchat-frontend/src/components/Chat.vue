@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6 offset-3">
-
+/* eslint-disable */
         <div v-if="!loading && sessionStarted" id="chat-container" class="card">
           <div class="card-header text-white text-center font-weight-bold subtle-blue-gradient">
             Share the page URL to invite new friends
@@ -34,7 +34,6 @@
               </div>
             </div>
           </div>
-
           <div class="card-footer text-muted">
             <form @submit.prevent="postMessage">
               <div class="row">
@@ -48,7 +47,6 @@
             </form>
           </div>
         </div>
-
         <div v-else-if="!loading && !sessionStarted">
           <h3 class="text-center">Welcome {{ username }}!</h3>
           <br />
@@ -59,7 +57,6 @@
           <br />
           <button @click="startChatSession" class="btn btn-primary btn-lg btn-block">Start Chatting</button>
         </div>
-
         <div v-else>
           <div class="loading">
             <img src="../assets/disqus.svg" />
@@ -70,7 +67,6 @@
     </div>
   </div>
 </template>
-
 <script>
 const $ = window.jQuery
 export default {
@@ -114,7 +110,7 @@ export default {
         this.$router.push(`/chats/${data.uri}/`)
         this.connectToWebSocket()
       })
-      .fail((response) => {
+      $.fail((response) => {
         alert(response.responseText)
       })
     },
@@ -123,7 +119,7 @@ export default {
       $.post(`http://localhost:8000/api/chats/${this.$route.params.uri}/messages/`, data, (data) => {
         this.message = '' // clear the message after sending
       })
-      .fail((response) => {
+      $.fail((response) => {
         alert(response.responseText)
       })
     },

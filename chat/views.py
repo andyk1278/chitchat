@@ -29,11 +29,12 @@ class ChatSessionView(APIView):
 
     def patch(self, request, *args, **kwargs):
         """Add a user to a chat session."""
-        user = get_user_model()
+        User = get_user_model()
         uri = kwargs['wri']
         username = request.data['username']
         chat_session = ChatSession.objects.get(uri=uri)
         owner = chat_session.owner
+        user = User.objects.get(username=username)
 
         if owner != user:  # Onlyallow non owners join the room
             chat_session.members.get_or_create(
@@ -62,8 +63,7 @@ class ChatSessionMessageView(APIView):
         """return all messages in a chat session."""
         uri = kwargs['uri']
         chat_session = ChatSession.objects.get(uri=uri)
-        messages = [chat_session_message.to_json()
-            for chat_session_message in chat_session.messages.all()]
+        messages = [chat_session_message.to_json() for chat_session_message in chat_session.messages.all()]
 
         return Response({
             'id': chat_session.id, 'uri': chat_session.uri,
@@ -77,11 +77,10 @@ class ChatSessionMessageView(APIView):
         user = request.user
         chat_session = ChatSession.objects.get(uri=uri)
 
-       chat_session_message = ChatSessionMessage.objects.create(
+        chat_session_message = ChatSessionMessage.objects.create(
            user=user, chat_session=chat_session, message=message
         )
-
-       notif_args = {
+        notif_args = {
            'source': user,
            'source_diplay_name': user.get_full_name(),
            'category': 'chat', 'action': 'Sent',
