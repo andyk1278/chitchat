@@ -2,7 +2,7 @@
 ### A real-time chat application built on Django/Django Rest Framework, Vue, uWSGI Websockets, and RabbitMQ. 
 [Tutorial for this project coming soon to a screen near you!]
 
-# Usage
+# Installation
 ### Vue (frontend)
 Change directory into `chitchat-frontend` directory:
 
