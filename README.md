@@ -1,5 +1,5 @@
-# chitchat
-A real-time chat application build on Django/Django Rest Framework, Vue, uWSGI Websockets, and RabbitMQ.
+# ChitChat
+A real-time chat application built on Django/Django Rest Framework, Vue, uWSGI Websockets, and RabbitMQ.
 
 # Usage
 ### Vue (frontend)
@@ -40,6 +40,6 @@ Refer to the docs on how to correctly install it on your operating system.
 ### Websocket server
 ChitChat uses uWSGI as the websocket server and if you have already install the python package requirements listed in 'requirements.txt', it has already been installed!
 
-To start the websocket server with the following command:
+You can start the websocket server with the following command:
 
 uswgi --http :8081 --gevent 100 --module websocket --gevent-monkey-path --master
