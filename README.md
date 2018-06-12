@@ -35,7 +35,7 @@ Run django's development server (defaults to localhost:8000)
 
 ### RabbitMQ
 ChitChat uses RabbitMQ to connect the django application and the uWSGI Websocket server. Depending on your operating system, the installation steps vary.
-Refer to the docs on how to correctly install it on your operating system.
+Refer to the [docs](https://www.rabbitmq.com/download.html) on how to correctly install it on your operating system.
 
 
 ### Websocket server
